@@ -1,4 +1,4 @@
-# mylibso
+QT 加载动态链接库（Linux 下.so文件）
 
 root@Linux-host:/home/vmuser/C# ls
 main.c  mylib.c  mylib.h
