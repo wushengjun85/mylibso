@@ -1,0 +1,32 @@
+#include <QtGui/QApplication>
+#include "widget.h"
+#include<QLibrary>
+#include<QDebug>
+
+
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    Widget w;
+    w.show();
+
+    QLibrary *hello_lib = NULL;
+    hello_lib = new QLibrary("/home/vmuser/C/libmylib.so");
+
+    hello_lib->load();
+    if(!hello_lib->isLoaded())
+    {
+        //printf("load libhello.so failed!\n");
+        qDebug()<<"load libmylib.so failed!\r\n"<<endl;
+        return 0;
+    }
+    typedef void (*Fun)();
+    Fun hello = (Fun)hello_lib->resolve("P");
+    if (hello)
+    {
+        hello();
+    }
+    hello_lib->unload();
+
+    return a.exec();
+}
